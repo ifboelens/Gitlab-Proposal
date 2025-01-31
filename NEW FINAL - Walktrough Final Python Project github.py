@@ -6,6 +6,11 @@ Created on Fri Jan 31 14:07:21 2025
 @author: isisboelens
 """
 
+# title of project, my name, and student number:
+print("Project Name: Extracting URLS and Generating APA Citations From Webpages")
+print('Name: Isis Boelens')
+print('Student Number: 6080073')
+
 """
 Since I unsuccesfully used git in my previous submission I will re write my 
 project such that the changes are saved in github.
@@ -59,7 +64,70 @@ ensures element you need is ready to use before interacting with it
 from selenium.webdriver.support import expected_conditions as EC
 
 
+#generating apa citation
 
+def generate_apa_citation(driver, url):
+    driver.get(url)
+    try:
+        # Wait for the page to load
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "title")))
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        
+        # Extract title
+        title = soup.title.string.strip() if soup.title else "No title found"
+        
+        # Extract website name from URL
+        parsed_url = urlparse(url)
+        website_name = parsed_url.netloc.replace('www.', '')
+
+        # Default author and date values
+        author = "No author found"
+        date = "n.d."  # Default to "no date"
+
+        # author extraction
+        author_classes = ['author', 'byline', 'author-name', 'entry-author']
+        for class_name in author_classes:
+            author_element = soup.find(class_=class_name)
+            if author_element:
+                # Remove any links and attempt to get plain text
+                for a_tag in author_element.find_all('a'):
+                    a_tag.decompose()  # Remove <a> tags within the author element
+                author_text = author_element.get_text(strip=True).replace("by", "").strip()
+                
+                if author_text:
+                    author = author_text
+                    break
+
+        # Fallback to meta tag check for author
+        if author == "No author found":
+            author_meta = soup.find("meta", {"name": "author"}) or soup.find("meta", {"property": "article:author"})
+            if author_meta and author_meta.get("content"):
+                author = author_meta["content"].strip()
+
+        # Extract publication date
+        date_element = soup.find('time')
+        if date_element:
+            date = date_element.get_text(strip=True)
+        else:
+            """
+            previously the publication date of the url I used was not able to be found.
+            This even though it was written on the webpage right below the author's 
+            name! Therefore, I added this, beceause in those cases soup.find("time") 
+            can't find the publication date.
+            """
+            # Check for other common formats for publication date
+            date_element = soup.find(string=lambda text: "Published:" in text if text else False)
+            if date_element:
+                date_text = date_element.split("Published:")[-1].strip()
+                date = date_text if date_text else "n.d."
+
+        # Format APA citation
+        citation = f"{author}. ({date}). {title}. {url}"
+        
+    except Exception as e:
+        print(f"Error processing {url}: {e}")
+        author, date, website_name, title, citation = None, None, None, None, None
+    return author, date, website_name, title, citation
 
 
 

@@ -47,6 +47,7 @@ Making the code more adaptable to different webpages!
 Initially requests was used. This allowed to only use one type of class 
 (see version1)
 """
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 """
@@ -54,7 +55,7 @@ selenium.support.ui: purpose was to use WebDriverWait. To wait for specific
 conditions to be true before proceeding. It prevents errors caused by trying 
 to interact with elements that haven't loaded yet
 """
-from selenium.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 
 """
 selenium.webdriver.support: provides set of predefined conditions. Makes code 
@@ -248,10 +249,17 @@ print("\n")
 
 
 
-
 """
 further actions:
     Now I finished the code I will need to test it.
+    
+    Steps:
+        1. Mock the Selenium WebDriver: Since interacting with a real browser 
+        can be slow and unnecessary for unit tests, we can mock the parts of the WebDriver
+        2. Mock BeautifulSoup: Mock the parsing of the page content
+        3. Write assertions to verify the expected results.
+        
+        test file: 
 
 """
 

@@ -6,26 +6,19 @@ Created on Fri Jan 31 17:49:14 2025
 @author: isisboelens
 """
 
-[build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "citation-extractor"
+[tool.poetry]
+name = "web_citation_extractor"
 version = "0.1.0"
-description = "A Python package to extract URLs and generate APA citations from webpages"
-authors = [
-    { name = "Isis Boelens", email = "youremail@example.com" },
-]
-license = "MIT"
-dependencies = [
-    "beautifulsoup4>=4.9.3",
-    "selenium>=3.141.0",
-    "requests>=2.24.0",
-]
-keywords = ["citation", "APA", "web scraping", "selenium"]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+description = "A tool for extracting citations from web pages."
+authors = ["Isis Boelens <ifboelens@tudelft.nl>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+beautifulsoup4 = "^4.9.3"
+requests = "^2.25.0"
+selenium = "^3.141.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+
 ]

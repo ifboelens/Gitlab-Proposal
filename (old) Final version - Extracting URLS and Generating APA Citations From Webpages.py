@@ -177,8 +177,6 @@ print("\n")
 
 '''
 
-
-
 Comments on changes:
 
 1. I wasn't able to resolve the problem with the linked up author name Toby Saunders.

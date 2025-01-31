@@ -33,6 +33,7 @@ you can see my progress.
 """
 
 import csv
+import os
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import re
@@ -144,7 +145,13 @@ def extract_urls_and_citations(soup):
     return urls, citations
 
 # Function to save extracted data into a CSV file
-def save_to_csv(data, file_path):
+def save_to_csv(data, file_name):
+    # Get the directory where the current script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Create the full file path by combining the script directory and the file name
+    file_path = os.path.join(script_dir, file_name)
+    
     with open(file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         
@@ -163,7 +170,16 @@ def save_to_csv(data, file_path):
             writer.writerow(["" for _ in range(3)])  
 
 
-
+# Function to display extracted metadata and save data
+def display_metadata_and_save(url, author, date, website_name, title, apa_citation, urls, citations, data):
+    print(f"\nProcessing URL: {url}")
+    print("\n--- Extracted Information ---")
+    print(f"Author: {author}")
+    print(f"Date: {date}")
+    print(f"Website Name: {website_name}")
+    print(f"Title: {title}")
+    print(f"APA Citation: {apa_citation}")
+    
 
 
 

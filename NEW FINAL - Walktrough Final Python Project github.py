@@ -27,6 +27,37 @@ I will keep my old version and work in the folder "Project Citation" so
 you can see my progress.
 """
 
+import csv
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+import re
+
+#selenium made code more robust
+
+"""
+selenium webdrive: made the code not specific for a type of class or ID, 
+but was able to search for those elements themselvse. 
+Making the code more adaptable to different webpages! 
+
+Initially requests was used. This allowed to only use one type of class 
+(see version1)
+"""
+from selenium.webdriver.common.by import By
+
+"""
+selenium.support.ui: purpose was to use WebDriverWait. To wait for specific 
+conditions to be true before proceeding. It prevents errors caused by trying 
+to interact with elements that haven't loaded yet
+"""
+from selenium.support.ui import WebDriverWait
+
+"""
+selenium.webdriver.support: provides set of predefined conditions. Makes code 
+more efficient by abstracting complex wait conditions into easy useable checks
+ensures element you need is ready to use before interacting with it
+"""
+from selenium.webdriver.support import expected_conditions as EC
+
 
 
 

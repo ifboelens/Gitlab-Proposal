@@ -142,4 +142,3 @@ def generate_apa_citation(driver, url):
 
 
 
-

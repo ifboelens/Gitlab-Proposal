@@ -176,7 +176,11 @@ process_urls(urls, output_file)
 print("\n")
 
 '''
-Comments on changes (Q1 ideas):
+
+
+
+Comments on changes:
+
 1. I wasn't able to resolve the problem with the linked up author name Toby Saunders.
 
 2. I got rid of the table because I didn't see the use of it. This code is useful

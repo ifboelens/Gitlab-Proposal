@@ -33,7 +33,6 @@ you can see my progress.
 """
 
 import csv
-import os
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import re
@@ -144,14 +143,9 @@ def extract_urls_and_citations(soup):
     
     return urls, citations
 
+ 
 # Function to save extracted data into a CSV file
-def save_to_csv(data, file_name):
-    # Get the directory where the current script is located
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    
-    # Create the full file path by combining the script directory and the file name
-    file_path = os.path.join(script_dir, file_name)
-    
+def save_to_csv(data, file_path):
     with open(file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         
@@ -167,8 +161,7 @@ def save_to_csv(data, file_name):
                 writer.writerow([idx, entry_type, entry_content])
 
             # Add an empty row for separation between different sources
-            writer.writerow(["" for _ in range(3)])  
-
+            writer.writerow(["" for _ in range(3)])  # Empty row for separation
 
 # Function to display extracted metadata and save data
 def display_metadata_and_save(url, author, date, website_name, title, apa_citation, urls, citations, data):
@@ -180,7 +173,62 @@ def display_metadata_and_save(url, author, date, website_name, title, apa_citati
     print(f"Title: {title}")
     print(f"APA Citation: {apa_citation}")
     
+    # Collect URLs and citations for the source
+    entries = []
+    if urls:
+        for url in urls:
+            entries.append(("URL", url))
+    if citations:
+        for citation in citations:
+            entries.append(("Citation", citation))
+    
+    # Add to the data dictionary for saving later
+    data[website_name] = entries
 
+# Main function to process multiple URLs
+def process_urls(urls, output_file):
+    # Initialize WebDriver
+    driver = webdriver.Chrome()  # Ensure 'chromedriver' is in your PATH
+    data = {}
+
+    try:
+        for url in urls:
+            # Generate APA citation and metadata
+            author, date, website_name, title, apa_citation = generate_apa_citation(driver, url)
+
+            if author is None or date is None:
+                print(f"Skipping {url}, due to extraction errors.")
+                continue
+
+            # Extract URLs and citations from the article content
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            extracted_urls, extracted_citations = extract_urls_and_citations(soup)
+
+            # Display metadata and save data
+            display_metadata_and_save(url, author, date, website_name, title, apa_citation, extracted_urls, extracted_citations, data)
+            
+    finally:
+        driver.quit()  # Close the WebDriver instance
+
+    # Save extracted data to CSV file
+    save_to_csv(data, output_file)
+    print(f"Data has been saved to {output_file}")
+
+# List of URLs to be processed
+urls = [
+    "https://www.sciencefocus.com/nature/largest-animal-in-the-world",
+    "https://time.com/6958510/are-pickles-good-for-you/",
+    "https://www.nature.com/articles/s41392-020-00243-2"
+]
+
+# Specify output file path
+output_file = 'extracted_data.csv' 
+
+# Process URLs and save the results to CSV
+process_urls(urls, output_file)
+
+
+print("\n")
 
 
 

@@ -143,7 +143,24 @@ def extract_urls_and_citations(soup):
     
     return urls, citations
 
+# Function to save extracted data into a CSV file
+def save_to_csv(data, file_path):
+    with open(file_path, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        
+        for source_name, entries in data.items():
+            # Write the source name as a header
+            writer.writerow([f"--- {source_name} ---"])
 
+            # Write the table headers
+            writer.writerow(["Number", "Type", "URL/Citation"])
+
+            # Write each entry (URL or Citation) for the current source
+            for idx, (entry_type, entry_content) in enumerate(entries, 1):
+                writer.writerow([idx, entry_type, entry_content])
+
+            # Add an empty row for separation between different sources
+            writer.writerow(["" for _ in range(3)])  
 
 
 

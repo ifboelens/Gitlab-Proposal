@@ -166,8 +166,8 @@ urls = [
     "https://www.nature.com/articles/s41392-020-00243-2"
 ]
 
-# Specify output file path (for Mac, you can specify any location, e.g., Desktop)
-output_file = '/Users/isisboelens/Desktop/extracted_data.csv'
+# Specify output file path
+output_file = 'extracted_data.csv' 
 
 # Process URLs and save the results to CSV
 process_urls(urls, output_file)

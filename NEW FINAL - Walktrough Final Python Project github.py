@@ -81,6 +81,7 @@ def generate_apa_citation(driver, url):
         website_name = parsed_url.netloc.replace('www.', '')
 
         # Default author and date values
+        
         author = "No author found"
         date = "n.d."  # Default to "no date"
 
@@ -227,9 +228,59 @@ output_file = 'extracted_data.csv'
 # Process URLs and save the results to CSV
 process_urls(urls, output_file)
 
+"""
+Trouble shooting: The csv file that is saved is not saved in the same folder, 
+Project Citation. Therefore, the following code we ensure that happens.
+"""
+import os
+
+# Get the directory where the script is located
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# Specify the output file path (CSV will be saved in the same directory as the script)
+output_file = os.path.join(script_dir, 'extracted_data.csv')
+
+# Process URLs and save the results to CSV
+process_urls(urls, output_file)
+
 
 print("\n")
 
 
 
 
+"""
+further actions:
+    Now I finished the code I will need to test it.
+
+"""
+
+"""
+comments on final code:
+    1. I wasn't able to resolve the problem with the linked up author name Toby Saunders.
+
+    2. I got rid of the table because I didn't see the use of it. This code is useful
+    when writing a paper so you can cite faster and also get all the URLS from the website.
+    This made the code shorter, but the output much clearer
+
+    3. When running this code on google scholar articles, it has troubles extracting authors.
+
+    This likely happens because I added a function on my laptop that through the TU delft I have access to more studies.
+    Everytime I open an article I need to log in with my username and password, this confuses the code.
+
+    Luckily this code isn't needed for scholar articles given that a lot of times the articles
+    are provided with a citation of the article itself.  '
+
+
+    4. I put all extrated links in a document on my laptop because it was taking in a lot of space in the 
+    output making the output messy and difficult to read wwhich goes against the purpose of this project.
+
+"""
+    
+
+    
+    
+    
+    
+    
+    

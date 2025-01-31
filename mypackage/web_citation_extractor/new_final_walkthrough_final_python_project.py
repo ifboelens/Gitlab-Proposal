@@ -259,9 +259,16 @@ further actions:
         2. Mock BeautifulSoup: Mock the parsing of the page content
         3. Write assertions to verify the expected results.
         
-        test file: 
+        test file: pytesting.py
+        
+    Now I also added packaging
+    I was able to succesfully build the package however had some troubles trying
+    to import it using the following command:
+        from your_project_name import my_function
+    I spend a long time trying to do this but was unsuccesful
 
 """
+
 
 """
 comments on final code:

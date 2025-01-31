@@ -131,7 +131,17 @@ def generate_apa_citation(driver, url):
 
 
 
-
+# Extract URLs and citations from an article
+def extract_urls_and_citations(soup):
+    # Extract all links (URLs) from the article
+    urls = [a_tag['href'] for a_tag in soup.find_all('a', href=True)]
+    
+    # Regex for APA-style citations: (Author, Year)
+    citation_pattern = r'\([A-Za-z]+, \d{4}\)'
+    text = soup.get_text()
+    citations = re.findall(citation_pattern, text)
+    
+    return urls, citations
 
 
 

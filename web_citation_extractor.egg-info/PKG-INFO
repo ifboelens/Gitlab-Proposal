@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: web-citation-extractor
+Version: 0.1
+Summary: A Python tool to extract URLs and generate APA citations from webpages.
+Home-page: https://github.com/ifboelens/Gitlab-Proposal
+Author: Isis Boelens
+Author-email: ifboelens@tudelft.nl
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown

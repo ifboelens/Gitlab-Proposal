@@ -1,0 +1,6 @@
+setup.py
+web_citation_extractor.egg-info/PKG-INFO
+web_citation_extractor.egg-info/SOURCES.txt
+web_citation_extractor.egg-info/dependency_links.txt
+web_citation_extractor.egg-info/requires.txt
+web_citation_extractor.egg-info/top_level.txt
